@@ -10,6 +10,21 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-# To use a debugger
-# gem 'byebug', group: [:development, :test]
+gem 'byebug', group: [:development, :test]
 
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+
+gem 'sass-rails'
+
+gem 'puma'
+
+gem 'material_icons'
+
+gem 'materialize-sass'
+
+gem 'font-awesome-rails'
+
+gem 'chronic'
+
+gem 'protected_attributes'

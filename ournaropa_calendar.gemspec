@@ -9,15 +9,19 @@ Gem::Specification.new do |s|
   s.version     = OurnaropaCalendar::VERSION
   s.authors     = ["Finn Woelm"]
   s.email       = ["finn.woelm@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of OurnaropaCalendar."
-  s.description = "TODO: Description of OurnaropaCalendar."
+  s.homepage    = "http://www.ournaropa.org"
+  s.summary     = "One calendar for all of Naropa."
+  s.description = "Description of OurnaropaCalendar."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 4.2.6"
-
-  s.add_development_dependency "sqlite3"
+  s.add_dependency "rails", "~> 4.2.4"
+  s.add_dependency "materialize-sass"
+  s.add_dependency "material_icons"
+  s.add_dependency "chronic"
+  
+  
+  s.add_development_dependency "pg"
 end

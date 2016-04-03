@@ -1,0 +1,124 @@
+<div id="events" class="index container">
+  <div class="row">
+
+    <h1 class="center-align">OurNaropa Calendar</h1>  
+    <p class="center-align">Discover what's happening at Naropa, share with your friends, and add your events.</p>
+    
+  </div>  
+  
+  <div class="row">
+    
+    <div class="col s8">
+        <%= link_to view_path(@show_date.prev_month.strftime("%b+%Y")), :class => "waves-effect waves-light btn tooltipped",  :data => {:position => "right", :delay => "50", :tooltip => "Previous month"} do %>
+          <i class="material-icons">keyboard_arrow_left</i>
+        <% end %>
+
+        <h5 id="focus"><%= @show_date.strftime("%B %Y") %></h5>
+
+        <%= link_to view_path(@show_date.next_month.strftime("%b+%Y")), :class => "waves-effect waves-light btn tooltipped",  :data => {:position => "right", :delay => "50", :tooltip => "Next month"} do %>
+          <i class="material-icons">keyboard_arrow_right</i>
+        <% end %>
+      
+        <%= link_to events_path, :title => "Today", :class => "waves-effect waves-light btn tooltipped", :data => {:position => "right", :delay => "50", :tooltip => "Show today"} do %>
+          <i class="material-icons">today</i>
+        <% end %>
+      
+    </div>
+    
+    <div class="col s4 right-align">
+      <%= link_to new_event_path, :class => "waves-effect waves-light btn red" do %>
+        <i class="material-icons left">add</i> Add Event
+      <% end %>       
+    </div>
+
+  </div>
+    
+  <div class="row">
+    <table id="calendar" class="bordered">
+      <thead>
+        <tr>
+          <% days_of_the_week.each do |day| %>
+            <th class="center-align"><%= day %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <% #print the calendar %>
+        
+        <% current_date = get_calendar_start_date(@show_date) %>
+        
+        <% for day in 0..(get_days_in_calendar(@show_date) -1) do %>
+                
+          <% if current_date == current_date.beginning_of_week %>
+            <tr>
+          <% end %>
+              
+              <% #check if current date is in the same month as the calendar -- if not, let's fade the date a bit %>
+              <td id="<%= current_date.strftime("%Y-%m-%d") %>" class="day <%= is_same_month?(@show_date, current_date) ? 'hoverable' : 'faded' %> <%= Time.now.beginning_of_day == current_date.beginning_of_day ? "today" : "" %>">
+                <div class="date-indicator center-align"><span><%= (get_calendar_start_date(@show_date) + day * seconds_per_day).strftime("%e") # print the day number
+                  %></span></div>
+                
+                <% current_date_events = @events.relevant({start: current_date.beginning_of_day, end: current_date.end_of_day})
+                   current_date_events.each_with_index do |event, index| %>
+                
+                <div class="event"><%= link_to event do %><%= (format_time(current_date, event.start_time, event.end_time) + " " + event.title).strip %><% end %></div>
+                
+                <!--
+                <% #no more events if we hit 3
+                  if index < 3 || current_date_events.count == index+1 %>
+                    <div class="event"><%= (format_time(current_date, event.start_time, event.end_time) + " " + event.title).strip %></div>
+                <% else %>
+                    <div class="event more">and <%= pluralize(current_date_events.count - 3, "more event") %> </div>
+                    <%# break
+%>
+                <%  end %>-->
+                
+              <% end %>
+
+              </td>
+              
+              
+          <% if current_date == current_date.end_of_week %>
+            </tr>
+          <% end %>
+        
+        
+          <% #advance day forward
+            current_date = current_date.tomorrow %>
+        
+        <% end %>
+        <tr></tr>
+      
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+
+<script type="text/javascript">
+    
+  // check if a day has more than three events - if so, then collapse
+  /* DISABLED COLLAPSIBLE 2016-04-02
+  var MAX_EVENTS = 4;
+  $("td.day").each(function (){
+    
+    if( $(this).children("div.event").length > MAX_EVENTS){
+      
+      // do the hiding
+      $(this).children("div.event:nth-of-type(n+"+(MAX_EVENTS+1)+")").hide(0);
+      
+      $(this).append('<div class="event show-all">and ' + ($(this).children("div.event").length - (MAX_EVENTS-1)) + ' more events</div>')
+    }
+  });
+  
+  // if click show-all, then show all events
+  $(".show-all").click(function() {
+    $(this).slideUp();
+    
+    $(this).siblings("div.event").slideDown();
+  });*/
+  
+
+</script>
