@@ -7,6 +7,8 @@ OurnaropaCalendar::Engine.routes.draw do
   
   get 'event/:id', to: 'events#show', as: :event
   
+  match 'new-event', to: 'events#create', as: :create_event, :via => [:post]
+  
   root 'events#index', as: :events
   
 end

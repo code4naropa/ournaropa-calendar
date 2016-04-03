@@ -35,14 +35,7 @@ module OurnaropaCalendar
     def create      
       @event = Event.new(event_params)
 
-      if @event.start_time_text.present?
-        @event.start_time = DateTime.strptime(Chronic.parse(@event.start_time_text).to_s, "%Y-%m-%d %H:%M:%S %z")
-      end
-      
-      if @event.end_time_text.present?
-        @event.end_time = DateTime.strptime(Chronic.parse(@event.end_time_text).to_s, "%Y-%m-%d %H:%M:%S %z")
-      end
-      
+
       if @event.save
         redirect_to @event, notice: 'Event was successfully created.'
       else
