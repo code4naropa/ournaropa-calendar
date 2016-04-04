@@ -1,9 +1,12 @@
 require_dependency "ournaropa_calendar/application_controller"
 
 module OurnaropaCalendar
-  class EventsController < ApplicationController
+  class EventsController < ::ApplicationController
     before_action :set_event, only: [:show, :edit, :update, :destroy]
 
+    # inherit the layout from the main application
+    layout 'application'
+    
     require "time"
     require 'chronic'
     
