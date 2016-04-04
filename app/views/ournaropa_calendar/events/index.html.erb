@@ -59,7 +59,8 @@
                 <div class="date-indicator center-align"><span><%= (get_calendar_start_date(@show_date) + day * seconds_per_day).strftime("%e") # print the day number
                   %></span></div>
                 
-                <% current_date_events = @events.relevant({start: current_date.beginning_of_day, end: current_date.end_of_day})
+                
+                <% current_date_events = @events_by_day[current_date.strftime("%Y-%m-%d")]
                    current_date_events.each_with_index do |event, index| %>
                 
                 <div class="event"><%= link_to event do %><%= (format_time(current_date, event.start_time, event.end_time) + " " + event.title).strip %><% end %></div>

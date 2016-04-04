@@ -20,10 +20,10 @@ module OurnaropaCalendar
     end
     
     def get_days_in_calendar time
-      puts ((get_calendar_end_date(time) - get_calendar_start_date(time)) / seconds_per_day).round
+      #puts ((get_calendar_end_date(time) - get_calendar_start_date(time)) / seconds_per_day).round
       return ((get_calendar_end_date(time) - get_calendar_start_date(time)) / seconds_per_day).round
     end
-
+  
     # checks if two dates are in the same year
     def is_same_year? date1, date2
       return date1.beginning_of_year == date2.beginning_of_year
@@ -52,7 +52,14 @@ module OurnaropaCalendar
     
     # formatting of start and end time
     def format_start_and_end_time start_time, end_time
-      return start_time.strftime("%l:%M %P") + " - " + end_time.strftime("%l:%M %P")
+      
+      # if start time equals end time, just give start time
+      if start_time == end_time
+        return start_time.strftime("%l:%M %P")
+      else
+        return start_time.strftime("%l:%M %P") + " - " + end_time.strftime("%l:%M %P")
+      end
+      
     end    
     
     # formatting of start and end time

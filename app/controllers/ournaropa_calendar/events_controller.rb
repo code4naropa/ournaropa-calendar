@@ -19,6 +19,21 @@ module OurnaropaCalendar
       @show_date = params[:date].present? ? Date.strptime(params[:date], "%b+%Y").to_time : Time.zone.now
       
       @events = Event.relevant({start: get_calendar_start_date(@show_date), end: get_calendar_end_date(@show_date)})
+      
+      # parse to days
+      @events_by_day = Hash.new
+      
+      @events.each do |event|
+        for i in 0..event.duration_in_days do
+          
+          # if no events have been saved for this day yet, then create it
+          if @events_by_day[(event.start_time + i.day).strftime("%Y-%m-%d").to_s].nil?
+            @events_by_day[(event.start_time + i.day).strftime("%Y-%m-%d").to_s] = []
+          end
+            
+          @events_by_day[(event.start_time + i.day).strftime("%Y-%m-%d").to_s].push(event)
+        end
+      end
     end
 
     # GET /events/1
