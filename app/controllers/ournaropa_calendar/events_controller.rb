@@ -16,7 +16,7 @@ module OurnaropaCalendar
     # GET /events
     def index
       
-      @show_date = params[:date].present? ? Date.strptime(params[:date], "%b+%Y").to_time : Time.now
+      @show_date = params[:date].present? ? Date.strptime(params[:date], "%b+%Y").to_time : Time.zone.now
       
       @events = Event.relevant({start: get_calendar_start_date(@show_date), end: get_calendar_end_date(@show_date)})
     end

@@ -55,7 +55,7 @@
           <% end %>
               
               <% #check if current date is in the same month as the calendar -- if not, let's fade the date a bit %>
-              <td id="<%= current_date.strftime("%Y-%m-%d") %>" class="day <%= is_same_month?(@show_date, current_date) ? 'hoverable' : 'faded' %> <%= Time.now.beginning_of_day == current_date.beginning_of_day ? "today" : "" %>">
+              <td id="<%= current_date.strftime("%Y-%m-%d") %>" class="day <%= is_same_month?(@show_date, current_date) ? 'hoverable' : 'faded' %> <%= Time.zone.now.beginning_of_day == current_date.beginning_of_day ? "today" : "" %>">
                 <div class="date-indicator center-align"><span><%= (get_calendar_start_date(@show_date) + day * seconds_per_day).strftime("%e") # print the day number
                   %></span></div>
                 
