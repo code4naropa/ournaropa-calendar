@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160402155304) do
+ActiveRecord::Schema.define(version: 20160404073738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-  create_table "ournaropa_calendar_events", force: :cascade do |t|
+  create_table "ournaropa_calendar_events", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.datetime "start_time"
@@ -27,5 +28,8 @@ ActiveRecord::Schema.define(version: 20160402155304) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
+
+  add_index "ournaropa_calendar_events", ["end_time"], name: "index_ournaropa_calendar_events_on_end_time", using: :btree
+  add_index "ournaropa_calendar_events", ["start_time"], name: "index_ournaropa_calendar_events_on_start_time", using: :btree
 
 end

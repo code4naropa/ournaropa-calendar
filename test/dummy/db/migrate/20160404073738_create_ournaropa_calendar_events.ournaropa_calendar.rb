@@ -1,3 +1,4 @@
+# This migration comes from ournaropa_calendar (originally 20160402155304)
 class CreateOurnaropaCalendarEvents < ActiveRecord::Migration
   def change
     

@@ -60,22 +60,25 @@
                   %></span></div>
                 
                 
-                <% current_date_events = @events_by_day[current_date.strftime("%Y-%m-%d")]
-                   current_date_events.each_with_index do |event, index| %>
+                <% # run through all events of the day and render them 
+                  if @events_by_day[current_date.strftime("%Y-%m-%d")]
+                    current_date_events = @events_by_day[current_date.strftime("%Y-%m-%d")]
+                    current_date_events.each_with_index do |event, index| %>
                 
-                <div class="event"><%= link_to event do %><%= (format_time(current_date, event.start_time, event.end_time) + " " + event.title).strip %><% end %></div>
+                    <div class="event"><%= link_to event do %><%= (format_time(current_date, event.start_time, event.end_time) + " " + event.title).strip %><% end %></div>
                 
-                <!--
-                <% #no more events if we hit 3
-                  if index < 3 || current_date_events.count == index+1 %>
-                    <div class="event"><%= (format_time(current_date, event.start_time, event.end_time) + " " + event.title).strip %></div>
-                <% else %>
-                    <div class="event more">and <%= pluralize(current_date_events.count - 3, "more event") %> </div>
-                    <%# break
-%>
-                <%  end %>-->
+                    <!--
+                    <% #no more events if we hit 3
+                      if index < 3 || current_date_events.count == index+1 %>
+                        <div class="event"><%= (format_time(current_date, event.start_time, event.end_time) + " " + event.title).strip %></div>
+                    <% else %>
+                        <div class="event more">and <%= pluralize(current_date_events.count - 3, "more event") %> </div>
+                        <%# break
+    %>
+                    <%  end %>-->
                 
-              <% end %>
+              <% end
+                end %>
 
               </td>
               

@@ -24,7 +24,7 @@ module OurnaropaCalendar
    
   
   class Event < ActiveRecord::Base
-    
+        
     attr_accessor :start_time_text, :end_time_text
     
     # if loaded from database, define start_time_text and end_time_text
