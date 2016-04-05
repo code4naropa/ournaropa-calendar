@@ -36,7 +36,7 @@ module OurnaropaCalendar
     
     # checks if two dates are on the same day
     def is_same_day? date1, date2
-      return date1.beginning_of_day == date2.beginning_of_day
+      return date1.beginning_of_day == date2.beginning_of_day || (date2 == date2.beginning_of_day and date1.beginning_of_day == date2.yesterday.beginning_of_day)
     end
 
     # formatting of start and end time
@@ -53,29 +53,24 @@ module OurnaropaCalendar
     # formatting of start and end time
     def format_start_and_end_time start_time, end_time
       
+      # if all day
+      if start_time == start_time.beginning_of_day and end_time == end_time.beginning_of_day
+        return "all day"
+        
       # if start time equals end time, just give start time
-      if start_time == end_time
+      elsif start_time == end_time 
         return start_time.strftime("%l:%M %P")
       else
         return start_time.strftime("%l:%M %P") + " - " + end_time.strftime("%l:%M %P")
       end
       
     end    
-    
-    # formatting of start and end time
-    def format_start_and_end_time_bk start_time, end_time
-      if is_same_day?(start_time, end_time)
-        return start_time.strftime("%a, %b %e, %Y, %l:%M %P") + " - " + end_time.strftime("%l:%M %P")
-      else
-        return start_time.strftime("%a, %b %e, %Y, %l:%M %P") + " - " + end_time.strftime("%a, %b %e, %Y, %l:%M %P")
-      end
-    end
-    
+      
     # formats an event time to show on calendar main view
     def format_time current_day, start_time, end_time
       
       # multi-day event?
-      if start_time < current_day.beginning_of_day
+      if start_time < current_day.beginning_of_day or (start_time == start_time.beginning_of_day and end_time > current_day) or (start_time == start_time.beginning_of_day and end_time == end_time.beginning_of_day)
         return ""
       end
       
