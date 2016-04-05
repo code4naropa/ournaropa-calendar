@@ -59,8 +59,8 @@ module OurnaropaCalendar
       
       num_days = ((self.end_time.beginning_of_day - self.start_time.beginning_of_day) / 1.day).round
       
-      # if event ends at midnight, it's an all day event
-      if self.is_all_day_event?
+      # if event ends at midnight, don't count this as a new day
+      if self.ends_at_midnight? and start_time != end_time
         num_days -= 1
       end
         
@@ -68,9 +68,9 @@ module OurnaropaCalendar
       
     end
       
-    # events are an all day event if they start at midnight and end at midnight
-    def is_all_day_event?
-      if self.start_time == self.start_time.beginning_of_day and self.end_time == self.end_time.beginning_of_day
+    # does the event end at midnight?
+    def ends_at_midnight?
+      if self.end_time == self.end_time.beginning_of_day
         return true
       else
         return false

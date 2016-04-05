@@ -41,6 +41,12 @@ module OurnaropaCalendar
 
     # formatting of start and end time
     def format_start_and_end_date start_time, end_time
+      
+      # if end time is midnight, it's not a new day
+      if end_time == end_time.beginning_of_day and start_time != end_time
+        end_time -= 1
+      end
+      
       if is_same_day?(start_time, end_time)
         return start_time.strftime("%a, %b %e, %Y")
       elsif is_same_year?(start_time, end_time)
@@ -54,12 +60,14 @@ module OurnaropaCalendar
     def format_start_and_end_time start_time, end_time
       
       # if all day
-      if start_time == start_time.beginning_of_day and end_time == end_time.beginning_of_day
+      if start_time == start_time.beginning_of_day and end_time == end_time.beginning_of_day and start_time != end_time
         return "all day"
         
       # if start time equals end time, just give start time
       elsif start_time == end_time 
         return start_time.strftime("%l:%M %P")
+      elsif end_time == end_time.beginning_of_day
+        return start_time.strftime("%l:%M %P") + " - midnight"
       else
         return start_time.strftime("%l:%M %P") + " - " + end_time.strftime("%l:%M %P")
       end
@@ -70,7 +78,7 @@ module OurnaropaCalendar
     def format_time current_day, start_time, end_time
       
       # multi-day event?
-      if start_time < current_day.beginning_of_day or (start_time == start_time.beginning_of_day and end_time > current_day) or (start_time == start_time.beginning_of_day and end_time == end_time.beginning_of_day)
+      if start_time < current_day.beginning_of_day or (start_time == start_time.beginning_of_day and end_time > current_day) or (start_time == start_time.beginning_of_day and end_time == end_time.beginning_of_day and start_time != end_time)
         return ""
       end
       
