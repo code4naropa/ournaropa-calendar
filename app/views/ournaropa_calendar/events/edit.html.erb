@@ -2,9 +2,16 @@
 
   <div class="row">
     
-    <%= link_to root_path, :class => "waves-effect waves-light btn" do %>
-      <i class="material-icons left">keyboard_arrow_left</i> Back to Calendar
-    <% end %>
+    <div class="col s6 m6">
+      <%= link_to root_path, :class => "waves-effect waves-light btn" do %>
+        <i class="material-icons left">keyboard_arrow_left</i> Back to Calendar
+      <% end %>
+    </div>
+    
+    <div class="col s6 m6 right-align">
+      <%= link_to 'Delete Event', delete_event_path(@event, @event.edit_code), method: :delete, data: { confirm: 'Are you sure?' }, class: "waves-effect waves-light btn grey" %>
+    </div>
+
 
   </div>  
   
@@ -14,7 +21,5 @@
   </div>
     
   <%= render partial: "form", locals: {submit_action: "Update Event"} %>
-  
-  <%= link_to 'Destroy', delete_event_path(@event, @event.edit_code), method: :delete, data: { confirm: 'Are you sure?' } %>
   
 </div>

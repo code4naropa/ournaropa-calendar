@@ -60,7 +60,7 @@
   
   <div class="row">
     <div class="description">
-      <p><i class="material-icons md-36 prefix">description</i><%= @event.description.present? ? @event.description : "No description." %></p>
+      <p><i class="material-icons md-36 prefix">description</i><%= @event.description.present? ? h(@event.description).gsub("\n","<br />").html_safe : "No description." %></p>
     </div>
     <div class="divider"></div>
   </div>
