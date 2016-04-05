@@ -1,6 +1,20 @@
-<h1>Editing Event</h1>
+<div id="events" class="edit container">
 
-<%= render 'form' %>
+  <div class="row">
+    
+    <%= link_to root_path, :class => "waves-effect waves-light btn" do %>
+      <i class="material-icons left">keyboard_arrow_left</i> Back to Calendar
+    <% end %>
 
-<%= link_to 'Show', @event %> |
-<%= link_to 'Back', events_path %>
+  </div>  
+  
+  <div class="row">
+    <h2 class="left-align">Editing Event</h2>  
+    <div class="divider"></div>
+  </div>
+    
+  <%= render partial: "form", locals: {submit_action: "Update Event"} %>
+  
+  <%= link_to 'Destroy', delete_event_path(@event, @event.edit_code), method: :delete, data: { confirm: 'Are you sure?' } %>
+  
+</div>

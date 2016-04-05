@@ -6,6 +6,36 @@
     <% end %>
 
   </div>
+    
+  <% # show edit code if event was just created
+  if flash[:show_edit_code] %>
+    <div class="row">
+      <div class="col s12 ">
+        <div class="card card-dark red">
+          <div class="card-content white-text">
+            <span class="card-title"><i class="material-icons md-36 prefix">check_circle</i> Event Saved</span>
+            <div class="row">
+              <div class="col s12">
+                <p>The following link allows you to edit this event later. Please save it carefully.</p>
+              </div>
+            </div>
+            <div class="row no-spacing">
+              <div class="input-field col s12">
+                <i class="material-icons prefix white-text">link</i>
+                <input id="copy-edit-url-text" class="white-text white-border" type="text" value="<%= edit_event_url(@event, @event.edit_code) %>" readonly="readonly">
+                <label class="white-text" for="url">URL / Link</label>
+
+              </div>
+            </div>
+          </div>
+          <div class="card-action red darken-2">
+            <a id="copy-edit-url" class="white-text">Copy URL to Clipboard</a>
+          </div>
+        </div>
+      </div>
+    </div>   
+  
+  <% end %>
   
   <div class="row">
     
@@ -94,7 +124,7 @@ end %>
           <div class="row">
             <div class="input-field col s6">
               <i class="material-icons prefix">link</i>
-              <input id="url" type="text" class="validate" value="<%= request.original_url %>">
+              <input id="url" type="text" value="<%= event_url(@event) %>" readonly="readonly">
               <label for="url">URL / Link</label>
 
             </div>
@@ -117,6 +147,7 @@ end %>
 
 
 <script type="text/javascript">
+    
   $("#copy-url").click(function(){
   
     // show url copy thing
@@ -132,7 +163,28 @@ end %>
       if(msg == "successful")
         Materialize.toast('URL copied to clipboard!', 4000); // 4000 is the duration of the toast
     } catch (err) {
+      Materialize.toast('Error copying URL... Please copy manually', 4000); // 4000 is the duration of the toast
+    }
+    
+    
+  });
+  
+  // copy edit url
+  $("#copy-edit-url").click(function(){
+  
+    
+    // do the copying
+    var copyTextarea = document.querySelector('#copy-edit-url-text');
+    copyTextarea.select();
+  
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+      if(msg == "successful")
+        Materialize.toast('URL copied to clipboard!', 4000); // 4000 is the duration of the toast
+    } catch (err) {
       console.log('Oops, unable to copy');
+      Materialize.toast('Error copying URL... Please copy manually', 4000); // 4000 is the duration of the toast
     }
     
     

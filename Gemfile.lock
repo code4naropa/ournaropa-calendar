@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ournaropa_calendar (0.1.1)
+    ournaropa_calendar (1.0.0)
       chronic
       material_icons
       materialize-sass

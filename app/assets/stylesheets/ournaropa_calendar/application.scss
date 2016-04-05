@@ -6,3 +6,17 @@
 @import "material_icons";
 
 @import "events";
+
+#events {
+  
+  // remove the bottom spacing from rows
+  div.row.no-spacing {
+    margin-bottom: 0px;
+  }
+  
+  // gives it a white border
+  .white-border {
+    border-color: white;
+  }
+
+}

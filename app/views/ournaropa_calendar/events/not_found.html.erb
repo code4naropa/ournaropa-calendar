@@ -1,0 +1,31 @@
+<div id="events" class="not_found container">
+  <div class="row">
+    
+    <%= link_to root_path, :class => "waves-effect waves-light btn" do %>
+      <i class="material-icons left">keyboard_arrow_left</i> Back to Calendar
+    <% end %>
+
+  </div>
+  
+  <div class="row">
+    
+    <h2 class="left-align">Sorry!</h2>  
+    <div class="divider"></div>
+  </div>
+  
+  <div class="row">
+    <div class="col s12 center-align">
+      <i class="material-icons large">sentiment_neutral</i>
+      <h5>Under the given address, no event could be found. Maybe it was deleted. Maybe it never existed.</h5>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col s12 center-align">
+      <%= link_to "Go to Calendar", root_path, class: "waves-effect waves-light btn-large" %>
+    </div>
+  </div>
+    
+  <div class="row">
+  </div>
+</div

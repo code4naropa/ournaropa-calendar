@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404073738) do
+ActiveRecord::Schema.define(version: 20160405030306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20160404073738) do
     t.string   "organizer_email"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "edit_code"
   end
 
   add_index "ournaropa_calendar_events", ["end_time"], name: "index_ournaropa_calendar_events_on_end_time", using: :btree

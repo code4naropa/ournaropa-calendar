@@ -2,6 +2,7 @@ require_dependency "ournaropa_calendar/application_controller"
 
 module OurnaropaCalendar
   class EventsController < ::ApplicationController
+    
     before_action :set_event, only: [:show, :edit, :update, :destroy]
 
     # inherit the layout from the main application
@@ -13,6 +14,11 @@ module OurnaropaCalendar
     # for important functions
     include EventsHelper
     
+    # if wrong id
+    rescue_from ActiveRecord::RecordNotFound do |exception|
+      render 'not_found'
+    end
+
     # GET /events
     def index
       
@@ -38,6 +44,9 @@ module OurnaropaCalendar
 
     # GET /events/1
     def show
+      if @event.nil?
+        puts "lol"
+      end
     end
 
     # GET /events/new
@@ -47,6 +56,7 @@ module OurnaropaCalendar
 
     # GET /events/1/edit
     def edit
+      redirect_to @event, notice: "Cannot edit event: The link you provided does not match the event's key code." unless @event.edit_code == params[:edit_code]
     end
 
     # POST /events
@@ -55,7 +65,7 @@ module OurnaropaCalendar
 
 
       if @event.save
-        redirect_to @event, notice: 'Event was successfully created.'
+        redirect_to @event, flash: { show_edit_code: true }
       else
         render :new
       end
@@ -72,8 +82,11 @@ module OurnaropaCalendar
 
     # DELETE /events/1
     def destroy
+      
+      redirect_to @event, notice: "Cannot delete event: The link you provided does not match the event's key code." unless @event.edit_code == params[:edit_code]
+      
       @event.destroy
-      redirect_to events_url, notice: 'Event was successfully destroyed.'
+      redirect_to root_url, notice: 'Event was successfully deleted.'
     end
 
     private

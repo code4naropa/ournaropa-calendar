@@ -49,6 +49,11 @@ module OurnaropaCalendar
     
     before_validation :parse_start_and_end_times
     
+    # before creation: create edit code
+    before_create do
+      self.edit_code = SecureRandom.hex(5).upcase
+    end
+    
     # gets the event duration in days
     def duration_in_days
       return ((self.end_time.beginning_of_day - self.start_time.beginning_of_day) / 1.day).round

@@ -98,10 +98,18 @@
 
 #events.show {
   
-  h5 i.prefix,
-  p i.prefix{
+  div:not(.input-field) > i.prefix{
     position: relative;
     top: 8px;
+  }
+  
+  // card has white border if necessary
+  .card.card-dark {
+    .card-action { border-color: white; }
+  }
+  
+  .card a {
+    cursor: pointer;
   }
   
   // style the sharing icons
