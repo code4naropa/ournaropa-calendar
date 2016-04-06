@@ -23,12 +23,13 @@
   </div>
   
   <div class="row">
-    <div class="input-field col s6">
+    <div class="input-field col s12 l6">
       <i class="material-icons prefix">event</i>
       <%= f.text_field :start_time_text, :class => "validate tooltipped", :data => {:position => "bottom", :delay => "50", :tooltip => "Type 'Tomorrow at 6pm' or '4/21/2016 at 11am'"} %>
       <%= f.label :start_time_text, "When does the event start?" %><br>
     </div>
-    <div class="input-field col s6">
+    <div class="row hide-on-large-only"></div>
+    <div class="input-field col s12 l6">
       <i class="material-icons prefix">rotate_90_degrees_ccw</i>
       <%= f.text_field :end_time_text, :class => "validate tooltipped", :data => {:position => "bottom", :delay => "50", :tooltip => "Type 'Tomorrow at 6pm' or '4/21/2016 at 11am'"} %>
       <%= f.label :end_time_text, "When does the event end?" %><br>
@@ -45,12 +46,13 @@
   </div>
 
   <div class="row">
-    <div class="input-field col s6">
+    <div class="input-field col s12 m12 l6">
       <i class="material-icons prefix">account_circle</i>
       <%= f.text_field :organizer_name, :class => "validate tooltipped", :data => {:position => "bottom", :delay => "50", :tooltip => "Adding your name gives folks an idea of who is organizing this event"}  %>
       <%= f.label :organizer_name, "What is your name / the name of the event organizer? (Optional)" %><br>
     </div>
-    <div class="input-field col s6">
+    <div class="row hide-on-large-only"></div>
+    <div class="input-field col s12 m12 l6">
       <i class="material-icons prefix">email</i>
       <%= f.text_field :organizer_email, :class => "validate tooltipped", :data => {:position => "bottom", :delay => "50", :tooltip => "Adding your email address allows people to get in touch with you with questions"}  %>
       <%= f.label :organizer_email, "What is your / the organizer's email address? (Optional)" %><br>

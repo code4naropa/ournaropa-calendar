@@ -3,7 +3,7 @@
   They will automatically be included in application.css.
 */
 
-#events {
+#events.index {
   
   // the current focus of the calendar (April 2016, ...)
   #focus {
@@ -23,6 +23,9 @@
     thead > tr {
       background-color: #26a69a;
       color: white;
+      
+      // hide overflow for mobile compatibility
+      th {overflow: hidden; }
     }
     
     // style cells
@@ -31,14 +34,15 @@
       // highlight today
       &.today {
         
-        background-color: #F44336;
-        font-weight: bold;
-        color: white;
+        background-color: color("red", "lighten-4");
         
         .date-indicator {
-          span { border-color: white; }
-          background-color: #F44336;
+          span {
+            border-color: color("red", "darken-2");
+          }
+          @extend .red;
           color: white;
+          font-weight: bold;
         }
       }
       
@@ -46,7 +50,7 @@
       height: 100px;
       
       // change padding
-      padding: 1px 5px !important;
+      padding: 0px 0px 10px 0px !important;
       
       // align top-left
       vertical-align: top;
@@ -54,28 +58,25 @@
       
       // style date-indicator
       .date-indicator {
-        margin-left: -5px;
-        margin-top: -1px;
-        background-color: white;
-        float:left;
+        background-color: rgba(0,0,0,.1);
+        margin-bottom: 5px;
         
         span {
-          padding: 0px;
+          padding: 0px 5px;
           min-width: 25px;
           display:block;
           border-bottom: 1px solid lightgray;
-          border-right: 1px solid lightgray;
         }
       }
       
       // style the events
       .event {
-        margin-left: 30px;
-        margin-top: 5px;
         
         // single line events
         white-space: nowrap;
         overflow-x: hidden;
+        line-height: normal;
+        padding: 0px 0px 0px 5px;
         margin-right: 5px;
         
         a {
@@ -114,26 +115,19 @@
   
   // style the sharing icons
   .sharing {
-    ul {
-      li {
-        display: inline-block;
-        
-        img {
-          width: 80px;
-          filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
-  filter: gray; /* IE6-9 */
-  -webkit-filter: grayscale(100%); /* Chrome 19+ & Safari 6+ */
-          transition: all .3s linear;
-        }
-        
-        img:hover {
-          filter: none;
-          cursor: pointer;
-        }
-      }
-      
+
+    img {
+      filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
+filter: gray; /* IE6-9 */
+-webkit-filter: grayscale(100%); /* Chrome 19+ & Safari 6+ */
+      transition: all .3s linear;
     }
-    
+
+    img:hover {
+      filter: none;
+      cursor: pointer;
+    }
+
   }
   
 }

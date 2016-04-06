@@ -8,27 +8,29 @@
   
   <div class="row">
     
-    <div class="col s8">
+    <div class="col s12 m5 push-m7 right-align">
+      <%= link_to new_event_path, :class => "waves-effect waves-light btn red" do %>
+        <i class="material-icons left">add</i> Add Event
+      <% end %>       
+    </div>
+    
+    <div class="row hide-on-med-and-up"></div>
+    
+    <div class="col s12 m7 pull-m5 left-align">
         <%= link_to view_path(@show_date.prev_month.strftime("%b+%Y")), :class => "waves-effect waves-light btn tooltipped",  :data => {:position => "right", :delay => "50", :tooltip => "Previous month"} do %>
           <i class="material-icons">keyboard_arrow_left</i>
         <% end %>
 
-        <h5 id="focus"><%= @show_date.strftime("%B %Y") %></h5>
+        <h5 id="focus"><%= @show_date.strftime("%b %Y") %></h5>
 
         <%= link_to view_path(@show_date.next_month.strftime("%b+%Y")), :class => "waves-effect waves-light btn tooltipped",  :data => {:position => "right", :delay => "50", :tooltip => "Next month"} do %>
           <i class="material-icons">keyboard_arrow_right</i>
         <% end %>
       
-        <%= link_to root_path, :title => "Today", :class => "waves-effect waves-light btn tooltipped", :data => {:position => "right", :delay => "50", :tooltip => "Show today"} do %>
+        <%= link_to root_path, :title => "Today", :class => "waves-effect waves-light btn tooltipped hide-on-med-and-down", :data => {:position => "right", :delay => "50", :tooltip => "Show today"} do %>
           <i class="material-icons">today</i>
         <% end %>
       
-    </div>
-    
-    <div class="col s4 right-align">
-      <%= link_to new_event_path, :class => "waves-effect waves-light btn red" do %>
-        <i class="material-icons left">add</i> Add Event
-      <% end %>       
     </div>
 
   </div>
@@ -55,8 +57,8 @@
           <% end %>
               
               <% #check if current date is in the same month as the calendar -- if not, let's fade the date a bit %>
-              <td id="<%= current_date.strftime("%Y-%m-%d") %>" class="day <%= is_same_month?(@show_date, current_date) ? 'hoverable' : 'faded' %> <%= Time.zone.now.beginning_of_day == current_date.beginning_of_day ? "today" : "" %>">
-                <div class="date-indicator center-align"><span><%= (get_calendar_start_date(@show_date) + day * seconds_per_day).strftime("%e") # print the day number
+              <td id="<%= current_date.strftime("%Y-%m-%d") %>" class="day <%= is_same_month?(@show_date, current_date) ? '' : 'faded' %> <%= Time.zone.now.beginning_of_day == current_date.beginning_of_day ? "today" : "" %>">
+                <div class="date-indicator left-align"><span><%= (get_calendar_start_date(@show_date) + day * seconds_per_day).strftime("%e") # print the day number
                   %></span></div>
                 
                 

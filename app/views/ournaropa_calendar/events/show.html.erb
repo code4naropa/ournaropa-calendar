@@ -67,34 +67,27 @@
   
   <!-- sharing -->
   <div class="row">
-    <div class="col s12 sharing">
-      <ul>
+    <div class="col s12 m6 l4 sharing">
+      <div class="col s3">
+        <%= link_to "https://www.facebook.com/sharer/sharer.php?u=" + URI.encode(request.original_url), :target => "_blank" do %>
+          <%= image_tag "ournaropa_calendar/fb-icon.png", :class => "tooltipped responsive-img", :data => {:position => "top", :delay => "50", :tooltip => "Share on Facebook"} %>
+        <% end %>
+      </div>
+      <div class="col s3">
+        <%= link_to "https://twitter.com/intent/tweet?text=" + URI.escape("Check out " + @event.title + ": " + request.original_url), :target => "_blank" do %>
+          <%= image_tag "ournaropa_calendar/twitter-icon.png", :class => "tooltipped responsive-img", :data => {:position => "top", :delay => "50", :tooltip => "Share on Twitter"} %>
+        <% end %>
+      </div>
+      <div class="col s3">
+        <a id="copy-url">
+          <%= image_tag "ournaropa_calendar/url-icon.png", :class => "tooltipped responsive-img", :data => {:position => "top", :delay => "50", :tooltip => "Copy Event URL to Clipboard"} %>
+        </a>
+      </div>
+    
+      <!-- Save to Google Calendar -->
+      <div class="col s3">
         
-        <!-- Share on Facebook -->
-        <li>
-          <%= link_to "https://www.facebook.com/sharer/sharer.php?u=" + URI.encode(request.original_url), :target => "_blank" do %>
-            <%= image_tag "ournaropa_calendar/fb-icon.png", :class => "tooltipped", :data => {:position => "top", :delay => "50", :tooltip => "Share on Facebook"} %>
-          <% end%>
-        </li>
-        
-        <!-- Share on Twitter -->
-        <li>
-          <%= link_to "https://twitter.com/intent/tweet?text=" + URI.escape("Check out " + @event.title + ": " + request.original_url), :target => "_blank" do %>
-            <%= image_tag "ournaropa_calendar/twitter-icon.png", :class => "tooltipped", :data => {:position => "top", :delay => "50", :tooltip => "Share on Twitter"} %>
-          <% end %>
-        </li>
-        
-        <!-- Copy URL -->
-        <li>
-          <a id="copy-url">
-            <%= image_tag "ournaropa_calendar/url-icon.png", :class => "tooltipped", :data => {:position => "top", :delay => "50", :tooltip => "Copy Event URL to Clipboard"} %>
-          </a>
-        </li>
-        
-        <!-- Save to Google Calendar -->
-        <% google_description = "" %>
-        
-        <%
+        <% google_description = ""
           if @event.organizer_name.present? || @event.organizer_email.present?
             google_description += "Organizer:"
           end
@@ -104,20 +97,18 @@
           if @event.organizer_email.present?
             google_description += " (" + @event.organizer_email+ ")"
           end
-if (@event.organizer_email.present? || @event.organizer_name.present?) && @event.description.present?
-  google_description += "\n\n"
-end
-if @event.description.present?
-  google_description += @event.description
-end %>
+
+          if (@event.organizer_email.present? || @event.organizer_name.present?) && @event.description.present?
+            google_description += "\n\n"
+          end
+          if @event.description.present?
+            google_description += @event.description
+          end %>
         
-        <li>
           <%= link_to "https://calendar.google.com/calendar/render?dates=" + @event.start_time.strftime("%Y%m%dT%H%M%S") + "/" + @event.end_time.strftime("%Y%m%dT%H%M%S") + "&ctz=America/Denver&action=TEMPLATE&text=" + URI.encode(@event.title) + "&location=" + URI.encode(@event.location) + "&details=" + URI.encode(google_description), :target => "_blank" do %>
-            <%= image_tag "ournaropa_calendar/gcal-icon.png", :class => "tooltipped", :data => {:position => "top", :delay => "50", :tooltip => "Save Event in Google Calendar"} %>
+        <%= image_tag "ournaropa_calendar/gcal-icon.png", :class => "tooltipped responsive-img", :data => {:position => "top", :delay => "50", :tooltip => "Save Event in Google Calendar"} %>
           <% end %>
-            
-            </li>
-      </ul>
+      </div>
       
       <div id="copy-url-textfield" class="row" style="display:none;">
         <div class="col s12">
